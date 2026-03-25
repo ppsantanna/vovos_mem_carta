@@ -1,0 +1,298 @@
+:root {
+    --bg-color: #f0f4f8;
+    --card-bg: #ffffff;
+    --primary-color: #2c3e50;
+    --accent-color: #004c7d;
+    --success-color: #27ae60;
+    --error-color: #c0392b;
+    --text-color: #2c3e50;
+    --font-size-base: 24px;
+    --font-size-title: 36px;
+    --btn-padding: 20px 40px;
+    --grid-gap: 20px;
+}
+
+/* Temas e Acessibilidade */
+.theme-default {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.high-contrast {
+    --bg-color: #000000;
+    --card-bg: #1a1a1a;
+    --primary-color: #ffff00;
+    --accent-color: #ffffff;
+    --success-color: #00ff00;
+    --error-color: #ff0000;
+    --text-color: #ffffff;
+}
+
+.font-large {
+    --font-size-base: 28px;
+    --font-size-title: 42px;
+}
+
+.font-xlarge {
+    --font-size-base: 32px;
+    --font-size-title: 48px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    transition: background-color 0.3s, color 0.3s;
+    font-size: var(--font-size-base);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 1000px;
+    padding: 20px;
+}
+
+.screen {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Splash Screen */
+.splash-image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.main-title {
+    font-size: var(--font-size-title);
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.intro-text {
+    margin-bottom: 30px;
+}
+
+/* Botões */
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: transform 0.2s, background-color 0.2s;
+    outline: 2px solid transparent;
+    outline-offset: 4px;
+}
+
+button:focus {
+    outline: 4px solid var(--accent-color);
+}
+
+.btn-large {
+    padding: 25px 50px;
+    font-size: 1.2em;
+    background-color: var(--accent-color);
+    color: white;
+    margin: 10px;
+}
+
+.btn-medium {
+    padding: 15px 30px;
+    font-size: 1em;
+    background-color: #bdc3c7;
+    color: black;
+    margin: 10px;
+}
+
+.pulse {
+    animation: pulser 2s infinite;
+}
+
+@keyframes pulser {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Grid de Jogo */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--grid-gap);
+    margin: 30px 0;
+}
+
+.card {
+    aspect-ratio: 1/1;
+    background-color: var(--primary-color);
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s, border 0.3s;
+    min-width: 120px;
+    min-height: 120px;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-back {
+    background-color: var(--accent-color);
+    border: 4px solid white;
+    padding: 10px;
+}
+
+.card-back img {
+    max-width: 80%;
+    max-height: 80%;
+    opacity: 0.8;
+}
+
+.card-front {
+    background-color: white;
+    transform: rotateY(180deg);
+    border: 4px solid var(--accent-color);
+}
+
+.card-front img {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.card.correct {
+    border: 8px solid var(--success-color);
+}
+
+.card.wrong {
+    border: 8px solid var(--error-color);
+}
+
+/* Game Stats */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.stats {
+    display: flex;
+    gap: 30px;
+    font-weight: bold;
+}
+
+.game-feedback {
+    font-weight: bold;
+    min-height: 1.5em;
+}
+
+/* Modais */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+    text-align: left;
+    margin: 20px 0;
+}
+
+.setting-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    grid-column: span 2;
+}
+
+/* Timer Overlay */
+.timer-overlay {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 50px;
+    font-size: 2em;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .game-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card {
+        min-width: 100px;
+        min-height: 100px;
+    }
+
+    .splash-content button {
+        width: 100%;
+    }
+}

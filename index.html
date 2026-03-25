@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memória por Posição - Vovô & Vovó</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="theme-default">
+    <div id="app" class="app-container">
+        <!-- Tela de Início -->
+        <section id="start-screen" class="screen">
+            <div class="splash-content">
+                <div class="splash-image-container">
+                    <img id="splash-img" src="images/splash.png" alt="Imagem de apresentação do jogo">
+                </div>
+                <!--
+                <h1 class="main-title">Memória por Posição</h1>
+                <p class="intro-text">Treine sua mente de forma divertida!</p>
+                -->
+                <div class="menu-buttons">
+                    <button id="btn-start" class="btn-large pulse" aria-label="Começar o jogo">START</button>
+                    <div class="secondary-buttons">
+                        <button id="btn-settings" class="btn-medium"
+                            aria-label="Abrir configurações">Configurações</button>
+                        <button id="btn-help" class="btn-medium" aria-label="Ver ajuda">Ajuda</button>
+                        <button id="btn-exit" class="btn-medium" aria-label="Sair do jogo">Sair</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tela de Jogo -->
+        <section id="game-screen" class="screen hidden">
+            <header class="game-header">
+                <div class="stats">
+                    <div class="stat-item" aria-live="polite">Pontos: <span id="current-score">0</span></div>
+                    <div class="stat-item" aria-live="polite">Tempo: <span id="game-timer">120</span>s</div>
+                    <div class="stat-item" aria-live="polite">Melhor: <span id="best-score">0</span></div>
+                </div>
+                <div id="game-message" class="game-feedback" aria-live="assertive"></div>
+            </header>
+
+            <div id="game-grid" class="game-grid">
+                <!-- Cartas serão geradas aqui via JS -->
+            </div>
+
+            <footer class="game-footer">
+                <button id="btn-confirm" class="btn-large hidden" aria-label="Confirmar seleção">Confirmar</button>
+                <div id="memorize-timer-overlay" class="timer-overlay hidden">
+                    <p>Memorize! <span id="memorize-seconds">15</span></p>
+                </div>
+            </footer>
+        </section>
+
+        <!-- Tela de Fim de Jogo -->
+        <section id="game-over-screen" class="screen hidden">
+            <div class="game-over-content">
+                <h1 class="main-title">Partida Encerrada!</h1>
+                <div class="final-stats">
+                    <p>Sua pontuação final: <span id="final-score-val">0</span></p>
+                    <p>Melhor pontuação: <span id="final-best-val">0</span></p>
+                </div>
+                <div class="menu-buttons">
+                    <button id="btn-restart" class="btn-large" aria-label="Recomeçar o jogo">Recomeçar</button>
+                    <button id="btn-back-home" class="btn-medium" aria-label="Voltar para a tela inicial">Voltar ao
+                        Início</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal de Configurações -->
+        <div id="settings-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2>Configurações</h2>
+                <div class="settings-grid">
+                    <label for="num-cards">Número de Cartas:</label>
+                    <select id="num-cards">
+                        <option value="6">6 Cartas</option>
+                        <option value="8">8 Cartas</option>
+                        <option value="12" selected>12 Cartas</option>
+                    </select>
+
+                    <label for="memo-time">Tempo de Memorização (s):</label>
+                    <input type="number" id="memo-time" value="15" min="5" max="60">
+
+                    <label for="game-time">Tempo de Partida (s):</label>
+                    <input type="number" id="game-time" value="120" min="30" max="300">
+
+                    <div class="setting-row">
+                        <label for="confirm-mode">Modo Confirmar:</label>
+                        <input type="checkbox" id="confirm-mode">
+                    </div>
+
+                    <div class="setting-row">
+                        <label for="sound-on">Som:</label>
+                        <input type="checkbox" id="sound-on" checked>
+                    </div>
+
+                    <label for="volume">Volume:</label>
+                    <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5">
+
+                    <label for="font-size">Tamanho da Fonte:</label>
+                    <select id="font-size">
+                        <option value="normal">Normal</option>
+                        <option value="large" selected>Grande (Idosos)</option>
+                        <option value="xlarge">Muito Grande</option>
+                    </select>
+
+                    <div class="setting-row">
+                        <label for="high-contrast">Alto Contraste:</label>
+                        <input type="checkbox" id="high-contrast">
+                    </div>
+                </div>
+                <button id="btn-save-settings" class="btn-medium">Salvar e Fechar</button>
+            </div>
+        </div>
+
+        <!-- Modal de Ajuda -->
+        <div id="help-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2>Como Jogar</h2>
+                <div class="help-steps">
+                    <div class="step">
+                        <p>1. Memorize as imagens e suas posições durante 15 segundos.</p>
+                    </div>
+                    <div class="step">
+                        <p>2. Depois, as cartas serão viradas para baixo.</p>
+                    </div>
+                    <div class="step">
+                        <p>3. Toque em uma carta para vê-la e depois toque na posição onde sua "irmã gêmea" estava!</p>
+                    </div>
+                </div>
+                <div class="setting-row">
+                    <label for="dont-show-help">Não mostrar novamente</label>
+                    <input type="checkbox" id="dont-show-help">
+                </div>
+                <button id="btn-close-help" class="btn-medium">Entendi!</button>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
