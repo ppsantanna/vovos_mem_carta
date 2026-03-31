@@ -56,20 +56,26 @@ body {
 
 .app-container {
     width: 100%;
-    max-width: 1000px;
-    padding: 20px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+* {
+    touch-action: manipulation;
 }
 
 .screen {
     background: var(--card-bg);
     border-radius: 20px;
-    padding: 40px;
+    padding: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     text-align: center;
     min-height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    overflow-x: hidden;
 }
 
 .hidden {
@@ -147,8 +153,9 @@ button:focus {
 .game-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: var(--grid-gap);
-    margin: 30px 0;
+    gap: 10px;
+    margin: 20px 0;
+    width: 100%;
 }
 
 .card {
@@ -159,8 +166,7 @@ button:focus {
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.6s, border 0.3s;
-    min-width: 120px;
-    min-height: 120px;
+    width: 100%;
 }
 
 .card.flipped {
@@ -283,16 +289,57 @@ button:focus {
 
 /* Responsividade */
 @media (max-width: 600px) {
-    .game-grid {
-        grid-template-columns: repeat(3, 1fr);
+    .screen {
+        padding: 10px;
     }
 
-    .card {
-        min-width: 100px;
-        min-height: 100px;
+    .game-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+
+    .stats {
+        gap: 10px;
+        font-size: 0.8em;
+    }
+
+    .game-header {
+        flex-direction: column;
+        gap: 10px;
     }
 
     .splash-content button {
         width: 100%;
     }
+
+    .timer-overlay {
+        font-size: 1.2em;
+        padding: 10px 20px;
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .modal-content {
+        padding: 20px;
+    }
+
+    .settings-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .setting-row {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 400px) {
+    .game-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+html, body {
+    overflow-x: hidden;
+    width: 100%;
 }
