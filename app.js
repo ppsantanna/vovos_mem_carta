@@ -12,6 +12,7 @@ const gameData = {
     memoTimer: null,
     cards: [],
     selectedCard: null,
+    matchesFound: 0,
     isProcessing: false,
     settings: {
         numCards: 12,
@@ -107,6 +108,7 @@ function startGame() {
     gameData.timeLeft = gameData.settings.gameTime;
     gameData.memoTimeLeft = gameData.settings.memoTime;
     gameData.selectedCard = null;
+    gameData.matchesFound = 0;
     gameData.isProcessing = false;
 
     updateStats();
@@ -265,6 +267,7 @@ function validateChoice(el, card) {
     if (choice1.card.image === choice2.card.image) {
         // ACERTO
         gameData.score++;
+        gameData.matchesFound++;
         playSound('success');
         choice1.el.classList.add('correct');
         choice2.el.classList.add('correct');
@@ -298,7 +301,7 @@ function validateChoice(el, card) {
 
 function checkWin() {
     const totalPairs = gameData.settings.numCards / 2;
-    if (gameData.score === totalPairs) {
+    if (gameData.matchesFound === totalPairs) {
         endGame();
     }
 }
